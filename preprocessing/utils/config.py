@@ -29,4 +29,7 @@ RAW_DIR = os.path.expanduser(os.path.join("~", "nasShare", "INM-GlobalShare", "D
 ROOT_DIR = os.path.expanduser(os.path.join("~", "nasShare", "projects", "cverstraete", "voltametry_pipeline"))
 DERIVATIVES_DIR = os.path.join(ROOT_DIR, "data", "derivatives")
 
+stim_ids = [10, 20, 30, 11, 21, 31, 12, 22, 32]
+action_ids = [100, 101, 102, 110, 111, 112, 200, 201, 202, 210, 211, 212]
+fb_ids = [151, 152, 153, 154]
 
