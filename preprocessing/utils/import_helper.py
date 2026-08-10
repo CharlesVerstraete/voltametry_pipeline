@@ -37,7 +37,21 @@ def transform_sweep_to_tc(signal, thr=1):
     Transforms a sweep signal into a time course (tc) and detects events based on a threshold.
     Returns the time course and the indices of detected events.
     """
-    tc = np.reshape(signal, (signal.size,))
+    tc = np.concatenate(signal)
     event_idx = np.where((tc[:-1] < thr) & (tc[1:] >= thr))[0]
     return tc, event_idx
 
+
+def save_extracted_signal(signal, events, subject_id, run):
+    """
+    Saves the extracted signal and events to a .npz file for a given subject and run.
+    """
+    save_dir = os.path.join(DERIVATIVES_DIR, f"sub-{subject_id:02d}", "volta")
+    os.makedirs(save_dir, exist_ok=True)
+    save_path = os.path.join(save_dir, f"sub-{subject_id:02d}_run-{run:02d}_signal-triggers.npy")
+    np.save(save_path, signal)
+
+    save_dir = os.path.join(DERIVATIVES_DIR, f"sub-{subject_id:02d}", "events")
+    os.makedirs(save_dir, exist_ok=True)
+    events_path = os.path.join(save_dir, f"sub-{subject_id:02d}_run-{run:02d}_events-triggers.csv")
+    events.to_csv(events_path, index=False)
